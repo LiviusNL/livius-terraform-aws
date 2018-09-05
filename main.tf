@@ -19,7 +19,7 @@ resource "aws_instance" "frontend_east" {
   count = 2
 
   provider = "aws.us-east-1"
-  availability_zone = "${var.availability_zones_west[index.count]}"
+  availability_zone = "${var.availability_zones_west[count.index]}"
 
   instance_type = "t1.micro"
 
@@ -34,7 +34,7 @@ resource "aws_instance" "backend_east" {
   count = 2
 
   provider = "aws.us-east-1"
-  availability_zone = "${var.availability_zones_west[index.count]}"
+  availability_zone = "${var.availability_zones_west[count.index]}"
 
   instance_type = "t1.micro"
 
