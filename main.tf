@@ -25,8 +25,8 @@ variable "availability_zones" {
 resource "aws_instance" "frontend" {
   count = 4
 
-  provider = "${variable.providers}"
-  availability_zone = "${variable.availability_zones}[${aws_instance.frontend.provider}]"
+  provider = "${var.providers}"
+  availability_zone = "${var.availability_zones}[${aws_instance.frontend.provider}]"
 
   instance_type = "t1.micro"
 
@@ -39,8 +39,8 @@ resource "aws_instance" "frontend" {
 resource "aws_instance" "backend" {
   count = 4
 
-  provider = "${variable.providers}"
-  availability_zone = "${variable.availability_zones}[${aws_instance.frontend.provider}]"
+  provider = "${var.providers}"
+  availability_zone = "${var.availability_zones}[${aws_instance.frontend.provider}]"
 
   instance_type = "t1.micro"
 
