@@ -23,7 +23,7 @@ resource "aws_instance" "frontend_east" {
 
   instance_type = "t1.micro"
 
-  depends_on = ["aws_instance.backend"]
+  depends_on = ["aws_instance.backend_east"]
 
   lifecycle {
     create_before_destroy = true
