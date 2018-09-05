@@ -21,7 +21,9 @@ resource "aws_instance" "frontend_east" {
   provider = "aws.us-east-1"
   availability_zone = "${var.availability_zones_west[count.index]}"
 
+  ami = "ami-04681a1dbd79675a5"
   instance_type = "t1.micro"
+  
 
   depends_on = ["aws_instance.backend_east"]
 
@@ -36,6 +38,7 @@ resource "aws_instance" "backend_east" {
   provider = "aws.us-east-1"
   availability_zone = "${var.availability_zones_west[count.index]}"
 
+  ami = "ami-04681a1dbd79675a5"
   instance_type = "t1.micro"
 
   # lifecycle {
