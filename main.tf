@@ -26,11 +26,12 @@ resource "aws_instance" "frontend" {
   count = 4
 
   provider = "${var.providers}"
-  availability_zone = "${var.availability_zones}[${aws_instance.frontend.provider}]"
+  availability_zone = "${var.availability_zones}[${self.provider}]"
 
   instance_type = "t1.micro"
 
-  depends_on = "${aws_instance.backend}"
+  depends_on = ["aws_instance.backend"]
+
   lifecycle {
     create_before_destroy = true
   }
@@ -40,7 +41,7 @@ resource "aws_instance" "backend" {
   count = 4
 
   provider = "${var.providers}"
-  availability_zone = "${var.availability_zones}[${aws_instance.frontend.provider}]"
+  availability_zone = "${var.availability_zones}[${self.provider}]"
 
   instance_type = "t1.micro"
 
