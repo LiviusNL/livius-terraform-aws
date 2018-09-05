@@ -8,25 +8,18 @@ provider "aws" {
   alias  = "us-west-2"
 }
 
-variable "providers" {
-  default = ["aws.us-east-1", "aws.us-west-2"]
+variable "availability_zones_east" {
+  default = ["us-east-1a", "us-east-1b"]
 }
 
-variable "availability_zones" {
-  type = "map"
-
-  default = { 
-    aws.us-east-1 = ["aws.us-east-1a", "aws.us-east-1b"]
-    aws.us-west-2 = ["aws.us-west-2a", "aws.us-west-2b"]
-  }
+variable "availability_zones_west" {
+  default = ["aws.us-west-2a", "aws.us-west-2b"]
 }
+resource "aws_instance" "frontend_east" {
+  count = 2
 
-
-resource "aws_instance" "frontend" {
-  count = 4
-
-  provider = "${var.providers}"
-  availability_zone = "${var.availability_zones}[${self.provider}]"
+  provider = "aws.us-east-1"
+  availability_zone = "${var.availability_zones_west[index.count]}"
 
   instance_type = "t1.micro"
 
@@ -37,11 +30,11 @@ resource "aws_instance" "frontend" {
   }
 }
 
-resource "aws_instance" "backend" {
-  count = 4
+resource "aws_instance" "backend_east" {
+  count = 2
 
-  provider = "${var.providers}"
-  availability_zone = "${var.availability_zones}[${self.provider}]"
+  provider = "aws.us-east-1"
+  availability_zone = "${var.availability_zones_west[index.count]}"
 
   instance_type = "t1.micro"
 
